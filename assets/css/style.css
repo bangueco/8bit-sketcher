@@ -26,9 +26,15 @@
 }
 
 .drawing-board {
-  border: 1px solid black;
-  padding: 300px;
+  display: grid;
+  grid-template-columns: repeat(16, 35px);
+  border: 1px solid red;
   background-color: white;
+}
+
+.grid-boxes {
+  aspect-ratio: 1/1;
+  border: 1px solid black;
 }
 
 .tools-button {
