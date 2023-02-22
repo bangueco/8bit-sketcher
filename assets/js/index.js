@@ -12,7 +12,7 @@ function setGrid(size) {
   console.log(size.target.value);
   removeGrid();
   createGrid(size.target.value);
-  setMode(currentMode);
+  setMode(currentMouseMode);
 }
 
 function createGrid(size) {
