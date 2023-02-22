@@ -3,6 +3,7 @@ const color_selector = document.querySelector("#color-selector");
 const draw_btn = document.querySelector("#draw-button");
 const eraser_btn = document.querySelector("#eraser-button");
 const clear_btn = document.querySelector("#clear-button");
+const showgrid_btn = document.querySelector("#grid-visibility-button");
 const toggle_value = document.querySelector("#toggle-value");
 const gridsize = document.querySelector("#grid-size");
 const drawingBoard = document.querySelector(".drawing-board");
@@ -28,6 +29,7 @@ function createGrid(size) {
 }
 
 function removeGrid() {
+  showgrid_btn.textContent = "Show Grid: On";
   while (drawingBoard.firstChild) {
     drawingBoard.removeChild(drawingBoard.lastChild);
   }
@@ -101,6 +103,21 @@ clear_btn.addEventListener("click", () => {
   const grids = document.querySelectorAll(".grid-boxes");
   for (const box of grids) {
     box.style["backgroundColor"] = "whitesmoke";
+  }
+});
+
+showgrid_btn.addEventListener("click", () => {
+  const grids = document.querySelectorAll(".grid-boxes");
+  if (showgrid_btn.textContent == "Show Grid: On") {
+    showgrid_btn.textContent = "Show Grid: Off";
+    for (const box of grids) {
+      box.style["border"] = "none";
+    }
+  } else if (showgrid_btn.textContent == "Show Grid: Off") {
+    showgrid_btn.textContent = "Show Grid: On";
+    for (const box of grids) {
+      box.style["border"] = "1px solid black";
+    }
   }
 });
 
