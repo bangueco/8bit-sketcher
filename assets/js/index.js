@@ -1,6 +1,7 @@
 // Queries
 const color_selector = document.querySelector("#color-selector");
 const draw_btn = document.querySelector("#draw-button");
+const eraser_btn = document.querySelector("#eraser-button");
 const toggle_value = document.querySelector("#toggle-value");
 const gridsize = document.querySelector("#grid-size");
 const drawingBoard = document.querySelector(".drawing-board");
@@ -47,6 +48,11 @@ function setMode(mode) {
     for (const box of grids) {
       box.addEventListener("mouseover", draw);
     }
+  } else if (mode === 2) {
+    currentMouseMode = 2;
+    for (const box of grids) {
+      box.addEventListener("mouseover", erase);
+    }
   }
 }
 
@@ -56,10 +62,18 @@ const draw = function (e) {
   e.target.style["backgroundColor"] = color_selector.value;
 };
 
+const erase = function (e) {
+  e.target.style["backgroundColor"] = "whitesmoke";
+};
+
 // Event listeners
 
 draw_btn.addEventListener("click", () => {
   setMode(1);
+});
+
+eraser_btn.addEventListener("click", () => {
+  setMode(2);
 });
 
 gridsize.addEventListener("change", setGrid);
