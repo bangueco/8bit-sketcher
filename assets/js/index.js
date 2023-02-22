@@ -33,12 +33,17 @@ function removeGrid() {
 
 // Set mouse modes
 
-let currentMode = 1;
+let currentMouseMode = 1; // Default is 1
+
+/*
+1 = draw mode
+2 = eraser mode
+*/
 
 function setMode(mode) {
   const grids = document.querySelectorAll(".grid-boxes");
   if (mode === 1) {
-    currentMode = 1;
+    currentMouseMode = 1;
     for (const box of grids) {
       box.addEventListener("mouseover", draw);
     }
@@ -62,4 +67,4 @@ gridsize.addEventListener("change", setGrid);
 // Default values when page loads and reloads
 
 createGrid(gridsize.value);
-setMode(currentMode);
+setMode(currentMouseMode);
