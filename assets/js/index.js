@@ -35,6 +35,8 @@ function removeGrid() {
 // Set mouse modes
 
 let currentMouseMode = 1; // Default is 1
+let drawMode = true;
+let eraseMode = false;
 
 /*
 1 = draw mode
@@ -43,6 +45,24 @@ let currentMouseMode = 1; // Default is 1
 
 function setMode(mode) {
   const grids = document.querySelectorAll(".grid-boxes");
+  if (currentMouseMode == 1) {
+    drawMode = true;
+    if (eraseMode == true) {
+      eraseMode = false;
+      for (const box of grids) {
+        box.removeEventListener("mouseover", erase);
+      }
+    }
+  } else if (currentMouseMode == 2) {
+    eraseMode = true;
+    if (drawMode == true) {
+      drawMode = false;
+      for (const box of grids) {
+        box.removeEventListener("mouseover", draw);
+      }
+    }
+  }
+
   if (mode === 1) {
     currentMouseMode = 1;
     for (const box of grids) {
