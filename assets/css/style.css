@@ -9,27 +9,31 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 40px;
+  gap: 25px;
   background-color: rgb(224, 222, 222);
   width: 100vw;
   height: 100vh;
 }
 
 .tools {
-  background-color: white;
+  background-color: whitesmoke;
   display: flex;
   align-items: center;
   gap: 20px;
   border: 2px solid black;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .drawing-board {
   display: grid;
-  grid-template-columns: repeat(16, 35px);
-  border: 1px solid red;
-  background-color: white;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  border-radius: 5px;
+  background-color: whitesmoke;
+  width: 600px;
+  height: 600px;
 }
 
 .grid-boxes {
