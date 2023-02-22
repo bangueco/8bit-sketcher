@@ -2,6 +2,7 @@
 const color_selector = document.querySelector("#color-selector");
 const draw_btn = document.querySelector("#draw-button");
 const eraser_btn = document.querySelector("#eraser-button");
+const rgb_btn = document.querySelector("#rgb-button");
 const clear_btn = document.querySelector("#clear-button");
 const showgrid_btn = document.querySelector("#grid-visibility-button");
 const toggle_value = document.querySelector("#toggle-value");
@@ -38,30 +39,47 @@ function removeGrid() {
 // Set mouse modes
 
 let currentMouseMode = 1; // Default is 1
+
 let drawMode = true;
 let eraseMode = false;
+let rgbMode = false;
 
 /*
 1 = draw mode
 2 = eraser mode
+3 = rgb mode
 */
 
 function setMode(mode) {
   const grids = document.querySelectorAll(".grid-boxes");
   if (currentMouseMode == 1) {
     drawMode = true;
-    if (eraseMode == true) {
+    if (eraseMode == true || rgbMode == true) {
       eraseMode = false;
+      rgbMode = false;
       for (const box of grids) {
         box.removeEventListener("mouseover", erase);
+        box.removeEventListener("mouseover", random);
       }
     }
   } else if (currentMouseMode == 2) {
     eraseMode = true;
-    if (drawMode == true) {
+    if (drawMode == true || rgbMode == true) {
       drawMode = false;
+      rgbMode = false;
       for (const box of grids) {
         box.removeEventListener("mouseover", draw);
+        box.removeEventListener("mouseover", random);
+      }
+    }
+  } else if (currentMouseMode == 3) {
+    rgbMode = true;
+    if (drawMode == true || eraseMode == true) {
+      drawMode = false;
+      eraseMode = false;
+      for (const box of grids) {
+        box.removeEventListener("mouseover", draw);
+        box.removeEventListener("mouseover", erase);
       }
     }
   }
@@ -76,6 +94,11 @@ function setMode(mode) {
     for (const box of grids) {
       box.addEventListener("mouseover", erase);
     }
+  } else if (mode === 3) {
+    currentMouseMode = 3;
+    for (const box of grids) {
+      box.addEventListener("mouseover", random);
+    }
   }
 }
 
@@ -89,6 +112,14 @@ const erase = function (e) {
   e.target.style["backgroundColor"] = "whitesmoke";
 };
 
+const random = function (e) {
+  let x = Math.floor(Math.random() * 255);
+  let y = Math.floor(Math.random() * 255);
+  let z = Math.floor(Math.random() * 255);
+  let result = `rgb(${x}, ${y}, ${z})`;
+  e.target.style["backgroundColor"] = result;
+};
+
 // Event listeners
 
 draw_btn.addEventListener("click", () => {
@@ -97,6 +128,10 @@ draw_btn.addEventListener("click", () => {
 
 eraser_btn.addEventListener("click", () => {
   setMode(2);
+});
+
+rgb_btn.addEventListener("click", () => {
+  setMode(3);
 });
 
 clear_btn.addEventListener("click", () => {
