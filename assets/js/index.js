@@ -1,4 +1,5 @@
 // Queries
+const color_selector = document.querySelector("#color-selector");
 const draw_btn = document.querySelector("#draw-button");
 const toggle_value = document.querySelector("#toggle-value");
 const gridsize = document.querySelector("#grid-size");
@@ -10,6 +11,7 @@ function setGrid(size) {
   console.log(size.target.value);
   removeGrid();
   createGrid(size.target.value);
+  setMode(currentMode);
 }
 
 function createGrid(size) {
@@ -31,17 +33,22 @@ function removeGrid() {
 
 // Set mouse modes
 
-function setMode() {
+let currentMode = 1;
+
+function setMode(mode) {
   const grids = document.querySelectorAll(".grid-boxes");
-  for (const box of grids) {
-    box.addEventListener("mouseover", draw);
+  if (mode === 1) {
+    currentMode = 1;
+    for (const box of grids) {
+      box.addEventListener("mouseover", draw);
+    }
   }
 }
 
 // Mouse modes functions
 
 const draw = function (e) {
-  e.target.style["backgroundColor"] = "black";
+  e.target.style["backgroundColor"] = color_selector.value;
 };
 
 // Event listeners
@@ -55,4 +62,4 @@ gridsize.addEventListener("change", setGrid);
 // Default values when page loads and reloads
 
 createGrid(gridsize.value);
-setMode();
+setMode(currentMode);
