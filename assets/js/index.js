@@ -2,6 +2,7 @@
 const color_selector = document.querySelector("#color-selector");
 const draw_btn = document.querySelector("#draw-button");
 const eraser_btn = document.querySelector("#eraser-button");
+const clear_btn = document.querySelector("#clear-button");
 const toggle_value = document.querySelector("#toggle-value");
 const gridsize = document.querySelector("#grid-size");
 const drawingBoard = document.querySelector(".drawing-board");
@@ -94,6 +95,13 @@ draw_btn.addEventListener("click", () => {
 
 eraser_btn.addEventListener("click", () => {
   setMode(2);
+});
+
+clear_btn.addEventListener("click", () => {
+  const grids = document.querySelectorAll(".grid-boxes");
+  for (const box of grids) {
+    box.style["backgroundColor"] = "whitesmoke";
+  }
 });
 
 gridsize.addEventListener("change", setGrid);
