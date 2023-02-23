@@ -44,6 +44,11 @@ let drawMode = true;
 let eraseMode = false;
 let rgbMode = false;
 
+let mouseDown = false;
+
+document.body.addEventListener("mousedown", () => (mouseDown = true));
+document.body.addEventListener("mouseup", () => (mouseDown = false));
+
 /*
 1 = draw mode
 2 = eraser mode
@@ -105,11 +110,15 @@ function setMode(mode) {
 // Mouse modes functions
 
 const draw = function (e) {
-  e.target.style["backgroundColor"] = color_selector.value;
+  if (e.type == "mouseover" && mouseDown == true) {
+    e.target.style["backgroundColor"] = color_selector.value;
+  }
 };
 
 const erase = function (e) {
-  e.target.style["backgroundColor"] = "whitesmoke";
+  if (e.type == "mouseover" && mouseDown == true) {
+    e.target.style["backgroundColor"] = "whitesmoke";
+  }
 };
 
 const random = function (e) {
@@ -117,7 +126,9 @@ const random = function (e) {
   let y = Math.floor(Math.random() * 255);
   let z = Math.floor(Math.random() * 255);
   let result = `rgb(${x}, ${y}, ${z})`;
-  e.target.style["backgroundColor"] = result;
+  if (e.type == "mouseover" && mouseDown == true) {
+    e.target.style["backgroundColor"] = result;
+  }
 };
 
 // Event listeners
