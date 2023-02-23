@@ -63,7 +63,9 @@ function setMode(mode) {
       eraseMode = false;
       rgbMode = false;
       for (const box of grids) {
+        box.removeEventListener("mousedown", erase);
         box.removeEventListener("mouseover", erase);
+        box.removeEventListener("mousedown", random);
         box.removeEventListener("mouseover", random);
       }
     }
@@ -73,7 +75,9 @@ function setMode(mode) {
       drawMode = false;
       rgbMode = false;
       for (const box of grids) {
+        box.removeEventListener("mousedown", draw);
         box.removeEventListener("mouseover", draw);
+        box.removeEventListener("mousedown", random);
         box.removeEventListener("mouseover", random);
       }
     }
@@ -83,7 +87,9 @@ function setMode(mode) {
       drawMode = false;
       eraseMode = false;
       for (const box of grids) {
+        box.removeEventListener("mousedown", draw);
         box.removeEventListener("mouseover", draw);
+        box.removeEventListener("mousedown", erase);
         box.removeEventListener("mouseover", erase);
       }
     }
@@ -92,16 +98,19 @@ function setMode(mode) {
   if (mode === 1) {
     currentMouseMode = 1;
     for (const box of grids) {
+      box.addEventListener("mousedown", draw);
       box.addEventListener("mouseover", draw);
     }
   } else if (mode === 2) {
     currentMouseMode = 2;
     for (const box of grids) {
+      box.addEventListener("mousedown", erase);
       box.addEventListener("mouseover", erase);
     }
   } else if (mode === 3) {
     currentMouseMode = 3;
     for (const box of grids) {
+      box.addEventListener("mousedown", random);
       box.addEventListener("mouseover", random);
     }
   }
@@ -110,15 +119,13 @@ function setMode(mode) {
 // Mouse modes functions
 
 const draw = function (e) {
-  if (e.type == "mouseover" && mouseDown == true) {
-    e.target.style["backgroundColor"] = color_selector.value;
-  }
+  if (e.type == "mouseover" && mouseDown == true) return (e.target.style["backgroundColor"] = color_selector.value);
+  if (e.type == "mousedown") return (e.target.style["backgroundColor"] = color_selector.value);
 };
 
 const erase = function (e) {
-  if (e.type == "mouseover" && mouseDown == true) {
-    e.target.style["backgroundColor"] = "whitesmoke";
-  }
+  if (e.type == "mouseover" && mouseDown == true) return (e.target.style["backgroundColor"] = "whitesmoke");
+  if (e.type == "mousedown") return (e.target.style["backgroundColor"] = "whitesmoke");
 };
 
 const random = function (e) {
@@ -126,9 +133,8 @@ const random = function (e) {
   let y = Math.floor(Math.random() * 255);
   let z = Math.floor(Math.random() * 255);
   let result = `rgb(${x}, ${y}, ${z})`;
-  if (e.type == "mouseover" && mouseDown == true) {
-    e.target.style["backgroundColor"] = result;
-  }
+  if (e.type == "mouseover" && mouseDown == true) return (e.target.style["backgroundColor"] = result);
+  if (e.type == "mousedown") return (e.target.style["backgroundColor"] = result);
 };
 
 // Event listeners
